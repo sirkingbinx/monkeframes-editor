@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Project>
 	<Target Name="CopyCompilerToBuild" AfterTargets="Build">
-		<Copy SourceFiles="$(OutputPath)\MonkeFrames.Compiler.dll" DestinationFiles="Build\MonkeFrames.Compiler.dll"/>
-		<Message Text="MonkeFrames.Compiler.dll -> Build\MonkeFrames.Compiler.dll" Importance="high"/>
+		<Copy SourceFiles="$(OutputPath)\MonkeFrames.Compiler.dll" DestinationFiles="Build\latest\MonkeFrames.Compiler.dll"/>
+		<Message Text="MonkeFrames.Compiler.dll -> Build\latest\MonkeFrames.Compiler.dll" Importance="high"/>
 	</Target>
 	
 	<Target Name="CopyEditorToBuild" AfterTargets="Build">
-		<Copy SourceFiles="$(TargetPath)" DestinationFiles="Build\MonkeFrames.Editor.dll"/>
-		<Message Text="MonkeFrames.Editor.dll -> Build\MonkeFrames.Editor.dll" Importance="high"/>
+		<Copy SourceFiles="$(TargetPath)" DestinationFiles="Build\latest\MonkeFrames.Editor.dll"/>
+		<Message Text="MonkeFrames.Editor.dll -> Build\latest\MonkeFrames.Editor.dll" Importance="high"/>
+	</Target>
+
+	<Target Name="ZipBuildOutput" AfterTargets="Build">
+		<ZipDirectory
+			SourceDirectory="Build\latest\"
+			DestinationFile="Build\MonkeFrames.zip"
+			Overwrite="true" />
 	</Target>
 
 	<Target Name="InstallToBepInEx" AfterTargets="Build" Condition="Exists('$(GamePath)\BepInEx\plugins')">
 		<ItemGroup>
-			<MonkeFramesAssemblies Include="Build\MonkeFrames.*.*" />
+			<MonkeFramesAssemblies Include="Build\MonkeFrames\latest\*" />
 		</ItemGroup>
 		
 		<Copy

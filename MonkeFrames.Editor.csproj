@@ -3,8 +3,14 @@
         <TargetFramework>netstandard2.1</TargetFramework>
 	    <PlatformTarget>x64</PlatformTarget>
         <LangVersion>latest</LangVersion>
+
+        <!-- designed to work with Wine -->
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        
+        <!-- add debug symbols for builds -->
 	    <DebugType Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">embedded</DebugType>
-            
+
+        <!-- copy DLLs to output directory for copying -->
 	    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 	</PropertyGroup>
 
